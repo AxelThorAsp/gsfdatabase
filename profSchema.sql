@@ -1,42 +1,48 @@
+DROP TABLE IF EXISTS MovieExec;
+DROP TABLE IF EXISTS Studio;
+DROP TABLE IF EXISTS Movie;
+DROP TABLE IF EXISTS MovieStar;
+DROP TABLE IF EXISTS StarsIn;
+
 CREATE TABLE MovieExec(
 	name varchar(25),
 	address varchar(25),
-	cert varchar(3) primary key, 
+	cert varchar(3) primary key,
 	netWorth int
 );
 
 CREATE TABLE Studio (
-	name varchar(25) primary key, 
-	address varchar(25), 
-	presC varchar(3) 
+	name varchar(25) primary key,
+	address varchar(25),
+	presC varchar(3)
 		references MovieExec(cert)
 );
 
 CREATE TABLE Movie (
-	title varchar(25), 
-	year int, length int, 
-	inColor boolean, 
-	studioName varchar(25) 
-		references Studio(name), 
-	producerC varchar(3) 
-		references MovieExec(cert), 
+	title varchar(25),
+	year int, length int,
+	inColor boolean,
+	studioName varchar(25)
+		references Studio(name),
+	producerC varchar(3)
+		references MovieExec(cert),
 	primary key (title, year)
 );
 
 CREATE TABLE MovieStar (
-	name varchar(25) primary key, 
-	address varchar(25), 
-	gender char(1), 
+	name varchar(25) primary key,
+	address varchar(25),
+	gender char(1),
 	birthdate varchar(10)
 );
 
 CREATE TABLE StarsIn (
-	movieTitle varchar(25), 
-	movieYear int, 
-	starName varchar(25) 
-		references MovieStar(name), 
-	primary key (movieTitle, movieYear, starName), 
-	foreign key (movieTitle, movieYear) 
+	movieTitle varchar(25),
+	movieYear int,
+	starName varchar(25)
+		references MovieStar(name),
+	primary key (movieTitle, movieYear, starName),
+	foreign key (movieTitle, movieYear)
 		references Movie(title,year)
 );
 insert into MovieStar values
@@ -46,15 +52,16 @@ insert into MovieStar values
 	('Maria', 'Reykjavik' ,'F' ,'June'),
 	('Isabella', 'Reykjavik', 'F', 'Feb'),
 	('Veturlidi' ,'Isafjordur','M' ,'Nov'),
-	('Patrik' ,'Poland' ,'M' ,'Feb');
-	
+	('Patrik' ,'Poland' ,'M' ,'Feb'),
+	('Jack Nicholson', 'USA', 'M', 'Jan');
+
 insert into Studio values
 	('Metro golden Mayer' ,'Calefornia' ,'SIG'),
 	('Disney Studios' ,'Dufnaholar' ,'STI'),
 	('Dreamworks' ,'Raufarhofn','STD'),
 	('Paramount' ,'Kopasker','FML'),
 	('Warner Brothers', 'Ibizafjordur', 'PAL');
-	
+
 insert into MovieExec values
 	('Siggi', 'Bolholt 10', 'SIG', 150),
 	('Palli', 'Bolholt 11', 'PAL', 930),
@@ -79,7 +86,8 @@ insert into Movie values
 	('I Sure Hope It Does',	2017, 102,1, 'Metro golden Mayer', 	'ROG'),
 	('Mad Max', 2001, 	520,1, 'Metro golden Mayer', 	'SIG'),
 	('Hacker', 2017, 	150,1, 'Metro golden Mayer', 	'SIG'),
-	('Gone With The Wind', 1939, 238, 0, 'Warner Brothers', 'PAL');
+	('Gone With The Wind', 1939, 238, 0, 'Warner Brothers', 'PAL'),
+	('The Shining', 1980, 120, 1, 'Warner Brothers', 'PAL');
 
 insert into StarsIn values
 	('Avatar', 2007, 'Hakon'),
@@ -104,5 +112,5 @@ insert into StarsIn values
 	('Mad Max', 2001, 'Isabella'),
 	('Mad Max', 2001, 'Tumi'),
 	('Mad Max', 2001, 'Veturlidi'),
-	('Star Trek Next Gen', 1901, 'Veturlidi');
-
+	('Star Trek Next Gen', 1901, 'Veturlidi'),
+	('The Shining', 1980, 'Jack Nicholson');
